@@ -22,16 +22,30 @@ def convert_text_to_dict(filename):
     return restaurant_rating
 
 
-def sort_restaurant_dict(restaurant_rating):
+def user_adds_rating(restaurant_rating):
+    """takes in user input and adds it to restaurant_rating dict"""
+
+    updated_ratings = restaurant_rating
+    user_restaurant = raw_input("Let's add your rating! What restaurant do you want to add? ")
+    user_rating = raw_input("Rate your restaurant between 1-5, 5 being the best: ")    
+    if user_restaurant not in restaurant_rating:
+        restaurant_rating[user_restaurant] = int(user_rating)
+
+    return updated_ratings
+
+
+
+def sort_restaurant_dict(updated_ratings):
     """sorts restaurant_rating dict and outputs in alphabetized by restaurant string"""
 
     #create list of tuples of restaurant and rating
     #and returns sorted list by restaurant name
-    restaurant_list = sorted(restaurant_rating.items())
+    restaurant_list = sorted(updated_ratings.items())
     
     #loops through sorted restaurant_list to print string
     for restaurant, rating in restaurant_list:
         print " %s is rated at %d." % (restaurant,rating)
 
 restaurant_rating = convert_text_to_dict("scores.txt")
-sort_restaurant_dict(restaurant_rating)
+updated_ratings = user_adds_rating(restaurant_rating)
+sort_restaurant_dict(updated_ratings)
